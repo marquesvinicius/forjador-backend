@@ -13,6 +13,11 @@ genai.configure(api_key=GEMINI_API_KEY)
 # Carrega o modelo Gemini 1.5 Flash
 model = genai.GenerativeModel('gemini-1.5-flash')
 
+@app.route('/ping', methods=['GET'])
+def ping():
+    """Endpoint simples para manter o servidor ativo - usado pelo cron-job"""
+    return jsonify({'status': 'alive', 'message': 'Servidor está ativo'}), 200
+
 @app.route('/generate', methods=['POST'])
 def generate():
     data = request.get_json()
